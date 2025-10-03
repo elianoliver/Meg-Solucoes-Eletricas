@@ -1,73 +1,105 @@
-# React + TypeScript + Vite
+# ⚡ Meg Soluções Elétricas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um site profissional moderno para apresentação de serviços elétricos, desenvolvido com React, TypeScript e Vite.
 
-Currently, two official plugins are available:
+## 🎯 Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este site foi desenvolvido para apresentar serviços especializados em instalações elétricas, incluindo:
 
-## React Compiler
+- 🏠 **Instalações Residenciais** - Cabeamento e infraestrutura elétrica completa
+- 💡 **Iluminação LED** - Perfis LED, lustres e sistemas de iluminação
+- 🏢 **Instalações Prediais** - Projetos elétricos para edifícios
+- 📹 **Infraestrutura de Segurança** - Câmeras e sistemas de monitoramento
+- 🔌 **Tubulação e Derivação** - Infraestrutura elétrica especializada
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## 🚀 Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+- **React 19** - Biblioteca para interfaces de usuário
+- **TypeScript** - Tipagem estática para JavaScript
+- **Vite** - Ferramenta de build rápida e moderna
+- **Tailwind CSS** - Framework CSS utilitário
+- **Shadcn/ui** - Componentes de UI reutilizáveis
+- **Lucide React** - Ícones modernos e elegantes
+- **Radix UI** - Componentes acessíveis e sem estilo
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📂 Estrutura do Projeto
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/           # Componentes React
+│   ├── Header.tsx       # Cabeçalho e navegação
+│   ├── HeroSection.tsx  # Seção principal
+│   ├── AboutSection.tsx # Seção sobre
+│   ├── ServicesSection.tsx # Galeria de serviços
+│   ├── ContactSection.tsx  # Formulário de contato
+│   ├── Footer.tsx       # Rodapé
+│   ├── ui/             # Componentes de UI reutilizáveis
+│   └── figma/          # Componentes especializados
+├── assets/             # Imagens e recursos
+│   └── services/       # Galeria de projetos realizados
+└── App.tsx            # Componente principal
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Instalação e Uso
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Pré-requisitos
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 18+
+- npm ou yarn
+
+### Instalação
+
+```bash
+# Clone o repositório
+git clone <url-do-repositorio>
+
+# Entre no diretório
+cd test-vite
+
+# Instale as dependências
+npm install
+```
+
+### Desenvolvimento
+
+```bash
+# Inicie o servidor de desenvolvimento
+npm run dev
+```
+
+O site estará disponível em `http://localhost:5173`
+
+### Build para Produção
+
+```bash
+# Gera a build otimizada
+npm run build
+
+# Visualiza a build localmente
+npm run preview
+```
+
+## 🎨 Funcionalidades
+
+- ✅ **Design Responsivo** - Adaptado para todos os dispositivos
+- ✅ **Navegação Suave** - Scroll suave entre seções
+- ✅ **Galeria de Projetos** - Showcase dos trabalhos realizados
+- ✅ **Formulário de Contato** - Interface para solicitações
+- ✅ **Performance Otimizada** - Carregamento rápido e eficiente
+- ✅ **SEO Friendly** - Estrutura otimizada para buscadores
+
+## 📱 Seções do Site
+
+1. **Hero** - Apresentação principal com destaque aos serviços
+2. **Sobre** - Informações sobre a empresa e experiência
+3. **Serviços** - Galeria visual dos diferentes tipos de trabalho
+4. **Contato** - Formulário e informações de contato
+
+## 🔧 Scripts Disponíveis
+
+```bash
+npm run dev      # Servidor de desenvolvimento
+npm run build    # Build para produção
+npm run preview  # Visualizar build local
+npm run lint     # Verificar código com ESLint
 ```
