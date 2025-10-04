@@ -10,7 +10,11 @@ const FALLBACK_STRATEGIES = [
     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNiIgZmlsbD0iIzk3YTNiNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlbSBuw6NvIGRpc3BvbsOtdmVsPC90ZXh0Pgo8L3N2Zz4K' // SVG inline como data URI
 ]
 
-export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElement>) {
+interface ImageWithFallbackProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+    lazy?: boolean;
+}
+
+export function ImageWithFallback(props: ImageWithFallbackProps) {
     const [currentSrc, setCurrentSrc] = useState(props.src)
     const [fallbackIndex, setFallbackIndex] = useState(-1)
     const [showPlaceholder, setShowPlaceholder] = useState(false)
@@ -38,7 +42,7 @@ export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElemen
         }
     }
 
-    const { src, alt, style, className, onError, ...rest } = props
+    const { src, alt, style, className, onError, lazy = true, ...rest } = props
 
     // Se todos os fallbacks falharam, mostra placeholder
     if (showPlaceholder) {
@@ -64,6 +68,8 @@ export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElemen
             alt={alt || "Imagem"}
             className={className}
             style={style}
+            loading={lazy ? "lazy" : "eager"}
+            decoding="async"
             {...rest}
             data-original-url={src}
             data-fallback-index={fallbackIndex}

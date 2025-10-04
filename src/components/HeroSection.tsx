@@ -15,12 +15,12 @@ export function HeroSection() {
     };
 
     return (
-        <section id="inicio" className="pt-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen">
+        <section id="inicio" className="pt-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen" role="banner" aria-label="Seção principal - MEG Soluções Elétricas">
             <div className="container mx-auto px-4 py-16">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     {/* Content */}
-                    <div className="space-y-8">
-                        <div className="space-y-4">
+                    <article className="space-y-8">
+                        <header className="space-y-4">
                             <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
                                 MEG Soluções
                                 <span className="text-yellow-500 block">Elétricas Profissionais</span>
@@ -28,7 +28,7 @@ export function HeroSection() {
                             <p className="text-xl text-slate-300 leading-relaxed">
                                 Energia. Inovação. Segurança. Serviços elétricos completos com qualidade e confiança para sua casa ou empresa.
                             </p>
-                        </div>
+                        </header>
 
                         <div className="flex flex-col gap-4 md:flex-row">
                             <Button
@@ -88,14 +88,14 @@ export function HeroSection() {
                                 </CardContent>
                             </Card>
                         </div>
-                    </div>
+                    </article>
 
                     {/* Image */}
                     <div className="relative">
                         <div className="relative z-10">
                             <ImageWithFallback
                                 src={jairImage}
-                                alt="Ferramentas elétricas profissionais"
+                                alt="Profissional eletricista da MEG Soluções Elétricas em ação, demonstrando expertise em serviços elétricos residenciais e comerciais"
                                 className="rounded-lg shadow-2xl w-full h-auto"
                             />
                         </div>

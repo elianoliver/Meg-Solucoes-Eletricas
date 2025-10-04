@@ -50,13 +50,15 @@ export function Header() {
                     <div className="flex items-center space-x-3">
                         <img
                             src={logoImage}
-                            alt="MEG Soluções Elétricas"
+                            alt="MEG Soluções Elétricas - Logo da empresa especializada em serviços elétricos profissionais"
                             className="h-12 w-auto"
-                        /> <span className="text-2xl text-white font-bold">MEG Soluções</span>
+                            loading="eager"
+                        />
+                        <span className="text-2xl text-white font-bold">MEG Soluções</span>
                     </div>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden md:flex items-center space-x-8">
+                    <nav className="hidden md:flex items-center space-x-8" role="navigation" aria-label="Menu principal">
                         <NavLinks />
                     </nav>
 

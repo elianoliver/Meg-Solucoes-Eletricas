@@ -1,0 +1,36 @@
+# Robots.txt para MEG Soluções Elétricas
+# Instruções para crawlers dos mecanismos de busca
+
+# Permitir acesso para todos os crawlers
+User-agent: *
+Allow: /
+
+# Disallow para diretórios desnecessários ou privados
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.well-known/
+Disallow: /api/
+Disallow: /temp/
+
+# Permitir especificamente as principais páginas
+Allow: /index.html
+Allow: /favicon.ico
+Allow: /logo.svg
+Allow: /assets/
+
+# Crawlers específicos para mecanismos de busca importantes
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Localização do sitemap
+Sitemap: https://megsolucoeseletricas.com.br/sitemap.xml
+
+# Informações adicionais para mecanismos de busca locais brasileiros
+# User-agent: *
+# Allow: /

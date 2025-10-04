@@ -11,6 +11,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ServicesSEO } from './SEO';
 import {
     Carousel,
     CarouselContent,
@@ -146,92 +147,95 @@ export function ServicesSection() {
     ];
 
     return (
-        <section id="servicos" className="py-20 bg-white">
-            <div className="container mx-auto px-4">
-                {/* Header */}
-                <div className="text-center space-y-4 mb-16">
-                    <Badge className="bg-yellow-500 text-black">Nossos Serviços</Badge>
-                    <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">
-                        Soluções Elétricas Completas
-                    </h2>
-                    <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                        Oferecemos uma ampla gama de serviços elétricos para atender todas as suas necessidades
-                        com segurança, qualidade e eficiência.
-                    </p>
-                </div>
+        <>
+            <ServicesSEO />
+            <section id="servicos" className="py-20 bg-white" role="main" aria-label="Seção de serviços elétricos">
+                <div className="container mx-auto px-4">
+                    {/* Header */}
+                    <header className="text-center space-y-4 mb-16">
+                        <Badge className="bg-yellow-500 text-black">Nossos Serviços</Badge>
+                        <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">
+                            Soluções Elétricas Completas
+                        </h2>
+                        <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+                            Oferecemos uma ampla gama de serviços elétricos para atender todas as suas necessidades
+                            com segurança, qualidade e eficiência.
+                        </p>
+                    </header>
 
-                {/* Services Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                    {services.map((service, index) => (
-                        <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                            <CardHeader className="text-center">
-                                <div className="mx-auto bg-yellow-500 p-3 rounded-full w-fit group-hover:bg-yellow-600 transition-colors">
-                                    <service.icon className="h-6 w-6 text-white" />
-                                </div>
-                                <CardTitle className="text-lg">{service.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent className="text-center space-y-4">
-                                <p className="text-slate-600 text-sm">{service.description}</p>
-                                <div className="space-y-2">
-                                    {service.features.map((feature, idx) => (
-                                        <div key={idx} className="text-xs text-slate-500 bg-slate-50 px-2 py-1 rounded">
-                                            {feature}
-                                        </div>
-                                    ))}
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-
-                {/* Featured Projects */}
-                <div className="space-y-8">
-                    <div className="text-center">
-                        <h3 className="text-2xl font-bold text-slate-900 mb-2">PROJETOS EM DESTAQUE</h3>
-                        <p className="text-slate-600">Alguns dos nossos trabalhos recentes</p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {Object.entries(groupedImages).map(([folder, images]) => {
-                            const data = projectData[folder] || {
-                                title: folder.charAt(0).toUpperCase() + folder.slice(1),
-                                description: `Exemplos de projetos relacionados a ${folder}.`,
-                                badges: [folder]
-                            };
-                            return (
-                                <Card key={folder} className="overflow-hidden">
-                                    <div className="h-[400px]">
-                                        <Carousel className="w-full h-full">
-                                            <CarouselContent>
-                                                {images.map((src, idx) => (
-                                                    <CarouselItem key={idx}>
-                                                        <ImageWithFallback
-                                                            src={src}
-                                                            alt={`${data.title} imagem ${idx + 1}`}
-                                                            className="w-full h-[400px] object-cover"
-                                                        />
-                                                    </CarouselItem>
-                                                ))}
-                                            </CarouselContent>
-                                            <CarouselPrevious className="absolute left-2 top-1/2" />
-                                            <CarouselNext className="absolute right-2 top-1/2" />
-                                        </Carousel>
+                    {/* Services Grid */}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                        {services.map((service, index) => (
+                            <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                                <CardHeader className="text-center">
+                                    <div className="mx-auto bg-yellow-500 p-3 rounded-full w-fit group-hover:bg-yellow-600 transition-colors">
+                                        <service.icon className="h-6 w-6 text-white" />
                                     </div>
-                                    <CardContent className="">
-                                        <h4 className="font-bold text-lg mb-2">{data.title}</h4>
-                                        <p className="text-slate-600 mb-4">{data.description}</p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {data.badges.map((badge, idx) => (
-                                                <Badge key={idx} variant="secondary">{badge}</Badge>
-                                            ))}
+                                    <CardTitle className="text-lg">{service.title}</CardTitle>
+                                </CardHeader>
+                                <CardContent className="text-center space-y-4">
+                                    <p className="text-slate-600 text-sm">{service.description}</p>
+                                    <div className="space-y-2">
+                                        {service.features.map((feature, idx) => (
+                                            <div key={idx} className="text-xs text-slate-500 bg-slate-50 px-2 py-1 rounded">
+                                                {feature}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+
+                    {/* Featured Projects */}
+                    <div className="space-y-8">
+                        <div className="text-center">
+                            <h3 className="text-2xl font-bold text-slate-900 mb-2">PROJETOS EM DESTAQUE</h3>
+                            <p className="text-slate-600">Alguns dos nossos trabalhos recentes</p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {Object.entries(groupedImages).map(([folder, images]) => {
+                                const data = projectData[folder] || {
+                                    title: folder.charAt(0).toUpperCase() + folder.slice(1),
+                                    description: `Exemplos de projetos relacionados a ${folder}.`,
+                                    badges: [folder]
+                                };
+                                return (
+                                    <Card key={folder} className="overflow-hidden">
+                                        <div className="h-[400px]">
+                                            <Carousel className="w-full h-full">
+                                                <CarouselContent>
+                                                    {images.map((src, idx) => (
+                                                        <CarouselItem key={idx}>
+                                                            <ImageWithFallback
+                                                                src={src}
+                                                                alt={`${data.title} imagem ${idx + 1}`}
+                                                                className="w-full h-[400px] object-cover"
+                                                            />
+                                                        </CarouselItem>
+                                                    ))}
+                                                </CarouselContent>
+                                                <CarouselPrevious className="absolute left-2 top-1/2" />
+                                                <CarouselNext className="absolute right-2 top-1/2" />
+                                            </Carousel>
                                         </div>
-                                    </CardContent>
-                                </Card>
-                            );
-                        })}
+                                        <CardContent className="">
+                                            <h4 className="font-bold text-lg mb-2">{data.title}</h4>
+                                            <p className="text-slate-600 mb-4">{data.description}</p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {data.badges.map((badge, idx) => (
+                                                    <Badge key={idx} variant="secondary">{badge}</Badge>
+                                                ))}
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }
