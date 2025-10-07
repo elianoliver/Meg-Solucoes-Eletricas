@@ -44,6 +44,6 @@ jobs:
           port: 21
           protocol: ftp
           local-dir: ./dist/
-          server-dir: ./public_html/
+          server-dir: ./
           # Opção para limpar o diretório de destino antes do deploy
           dangerous-clean-slate: true 
