@@ -38,22 +38,12 @@ jobs:
       - name: Deploy com FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          # Servidor FTP (do secret que configuramos)
           server: ${{ secrets.FTP_SERVER }}
-          
-          # Usuário FTP (do secret)
           username: ${{ secrets.FTP_USERNAME }}
-          
-          # Senha FTP (do secret)
           password: ${{ secrets.FTP_PASSWORD }}
-          
-          # Pasta local que será enviada (resultado do 'npm run build')
+          port: 21
+          protocol: ftp
           local-dir: ./dist/
-          
-          # Pasta de destino no servidor. Limpa o conteúdo antes de enviar.
-          # CUIDADO: 'public_html' é o padrão. Confirme se é o seu caso.
-          # O './' no final é importante para garantir que ele entre no diretório.
           server-dir: ./public_html/
-          
           # Opção para limpar o diretório de destino antes do deploy
-          cleanup: true
+          dangerous-clean-slate: true 
