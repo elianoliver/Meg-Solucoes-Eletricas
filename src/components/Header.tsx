@@ -81,7 +81,7 @@ export function Header() {
                                 <Menu className="h-6 w-6 text-white" />
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="right" className="bg-slate-900 border-slate-800">
+                        <SheetContent side="right" className="bg-slate-900 border-slate-800 text-white">
                             <SheetTitle className="sr-only">Menu de Navegação</SheetTitle>
                             <SheetDescription className="sr-only">
                                 Menu de navegação do site MEG Soluções Elétricas
@@ -89,13 +89,13 @@ export function Header() {
                             <div className="flex flex-col space-y-6 mt-8">
                                 <NavLinks />
                                 <div className="border-t border-slate-800 pt-6 space-y-4">
-                                    <div className="flex items-center space-x-2">
+                                    <div className="flex items-center justify-center space-x-2">
                                         <Phone className="h-4 w-4 text-yellow-500" />
-                                        <span className="text-white">(47) 99647-1189</span>
+                                        <span>(47) 99647-1189</span>
                                     </div>
-                                    <div className="flex items-center space-x-2">
+                                    <div className="flex items-center justify-center space-x-2">
                                         <Mail className="h-4 w-4 text-yellow-500" />
-                                        <span className="text-white">jairzouza0111@gmail.com</span>
+                                        <span>jairzouza0111@gmail.com</span>
                                     </div>
                                 </div>
                             </div>
