@@ -17,25 +17,9 @@ function SheetTrigger({
 }
 
 function SheetClose({
-    ...props
+...props
 }: React.ComponentProps<typeof SheetPrimitive.Close>) {
-    const ref = React.useRef<HTMLButtonElement>(null);
-
-    React.useEffect(() => {
-        const handlePopState = () => {
-            if (ref.current) {
-                ref.current.click();
-            }
-        };
-
-        window.addEventListener('popstate', handlePopState);
-
-        return () => {
-            window.removeEventListener('popstate', handlePopState);
-        };
-    }, []);
-
-    return <SheetPrimitive.Close ref={ref} data-slot="sheet-close" {...props} />;
+return <SheetPrimitive.Close data-slot="sheet-close" {...props} />;
 }
 
 function SheetPortal({
