@@ -77,7 +77,7 @@ export function Header() {
                     {/* Mobile Menu */}
                     <Sheet>
                         <SheetTrigger asChild className="md:hidden">
-                            <Button variant="ghost" size="lg" className="text-[14px]">
+                            <Button variant="link" size="lg" className="text-[14px]">
                                 <Menu className="h-6 w-6 text-white" />
                             </Button>
                         </SheetTrigger>
