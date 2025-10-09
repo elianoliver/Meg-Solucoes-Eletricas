@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import imageOg from '../assets/og-image.jpg';
+import imageOg from '../../public/og-image.jpg';
 
 interface SEOProps {
     title?: string;
