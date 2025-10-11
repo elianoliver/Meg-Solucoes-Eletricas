@@ -70,7 +70,7 @@ export function Header() {
                         </div>
                         <div className="flex items-center space-x-2 text-sm text-white">
                             <Mail className="h-4 w-4 text-yellow-500" />
-                            <span>jairzouza0111@gmail.com</span>
+                            <span>jairsouza0111@gmail.com</span>
                         </div>
                     </div>
 
@@ -95,7 +95,7 @@ export function Header() {
                                     </div>
                                     <div className="flex items-center justify-center space-x-2">
                                         <Mail className="h-4 w-4 text-yellow-500" />
-                                        <span>jairzouza0111@gmail.com</span>
+                                        <span>jairsouza0111@gmail.com</span>
                                     </div>
                                 </div>
                             </div>

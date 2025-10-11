@@ -113,7 +113,7 @@
 
 Para dúvidas sobre a implementação SEO:
 - WhatsApp: (47) 99647-1189
-- Email: jairzouza0111@gmail.com
+- Email: jairsouza0111@gmail.com
 
 ---
 

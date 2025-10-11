@@ -1,6 +1,6 @@
 'use client';
 
-import { Phone, Mail, MapPin, Clock, MessageCircle, SquarePen} from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, MessageCircle, SquarePen } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { ContactSEO } from './SEO';
@@ -28,8 +28,8 @@ export function ContactSection() {
         {
             icon: Mail,
             title: "Email",
-            value: "jairzouza0111@gmail.com",
-            action: () => window.open('mailto:jairzouza0111@gmail.com'),
+            value: "jairsouza0111@gmail.com",
+            action: () => window.open('mailto:jairsouza0111@gmail.com'),
             color: "text-blue-500"
         },
         {
