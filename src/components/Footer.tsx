@@ -1,7 +1,7 @@
 'use client';
 
 import { Phone, Mail, MapPin, Zap } from 'lucide-react';
-import logoImage from '../assets/logo.svg';
+import logoImage from '/public/logo.svg';
 
 export function Footer() {
     const currentYear = new Date().getFullYear();

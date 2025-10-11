@@ -1,19 +1,14 @@
 'use client';
 
-import { Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, MessageCircle, SquarePen} from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
 import { Badge } from './ui/badge';
 import { ContactSEO } from './SEO';
+import { ContactForm } from './ContactForm';
+import { Button } from './ui/button';
 
 export function ContactSection() {
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // In a real application, you would handle form submission here
-        alert('Mensagem enviada! Entraremos em contato em breve.');
-    };
+    // handleSubmit removido, pois o envio é feito pelo ContactForm
 
     const contactInfo = [
         {
@@ -110,12 +105,10 @@ export function ContactSection() {
                                     </Button>
                                 </CardContent>
                             </Card>
-
                         </div>
 
-
                         <div className="space-y-6">
-                            {/* Service Areas */}
+                            {/* Service Areas ... mantém igual ... */}
                             <Card className="bg-slate-800 border-slate-700 gap-2">
                                 <CardHeader>
                                     <CardTitle className="flex items-center space-x-2">
@@ -133,79 +126,16 @@ export function ContactSection() {
                             {/* Contact Form */}
                             <Card className="bg-slate-800 border-slate-700">
                                 <CardHeader>
-                                    <CardTitle className='text-white'>Solicitar Orçamento</CardTitle>
+                                    <CardTitle className='flex items-center space-x-2 text-white'>
+                                        <SquarePen className="h-5 w-5 text-blue-400" />
+                                        <span>Solicitar Orçamento</span>
+                                    </CardTitle>
                                     <p className="text-slate-300">
                                         Preencha o formulário abaixo e entraremos em contato em breve.
                                     </p>
                                 </CardHeader>
                                 <CardContent>
-                                    <form onSubmit={handleSubmit} className="space-y-4">
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <label className="block text-sm font-medium mb-2 text-white">Nome</label>
-                                                <Input
-                                                    type="text"
-                                                    required
-                                                    className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
-                                                    placeholder="Seu nome"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium mb-2 text-white">Telefone</label>
-                                                <Input
-                                                    type="tel"
-                                                    required
-                                                    className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
-                                                    placeholder="(47) 99999-9999"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <label className="block text-sm font-medium text-white mb-2">Email</label>
-                                            <Input
-                                                type="email"
-                                                required
-                                                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
-                                                placeholder="seu@email.com"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label className="block text-sm text-white font-medium mb-2">Tipo de Serviço</label>
-                                            <select
-                                                className="w-full p-3 bg-slate-700 border border-slate-600 rounded-md text-white"
-                                                required
-                                            >
-                                                <option value="">Selecione o serviço</option>
-                                                <option value="instalacao-residencial">Instalação Residencial</option>
-                                                <option value="instalacao-comercial">Instalação Comercial</option>
-                                                <option value="manutencao">Manutenção</option>
-                                                <option value="emergencia">Emergência</option>
-                                                <option value="automacao">Automação</option>
-                                                <option value="iluminacao-led">Iluminação LED</option>
-                                                <option value="reforma">Reforma Elétrica</option>
-                                                <option value="outro">Outro</option>
-                                            </select>
-                                        </div>
-
-                                        <div>
-                                            <label className="block text-sm text-white font-medium mb-2">Mensagem</label>
-                                            <Textarea
-                                                required
-                                                rows={4}
-                                                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
-                                                placeholder="Descreva detalhadamente o serviço que você precisa..."
-                                            />
-                                        </div>
-
-                                        <Button
-                                            type="submit"
-                                            className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-3 cursor-pointer"
-                                        >
-                                            Enviar Solicitação
-                                        </Button>
-                                    </form>
+                                    <ContactForm />
                                 </CardContent>
                             </Card>
                         </div>

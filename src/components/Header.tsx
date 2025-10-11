@@ -3,7 +3,7 @@
 import { Menu, Phone, Mail } from 'lucide-react';
 import { Button } from './ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from './ui/sheet';
-import logoImage from '../assets/logo.svg';
+import logoImage from '/public/logo.svg';
 
 export function Header() {
     const scrollToSection = (sectionId: string) => {
