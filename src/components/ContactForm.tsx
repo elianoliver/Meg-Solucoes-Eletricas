@@ -15,9 +15,9 @@ export const ContactForm = () => {
 
         setStatus('sending');
 
-        const serviceID = import.meta.env.VITE_SERVICE_ID;
-        const templateID = import.meta.env.VITE_TEMPLATE_ID;
-        const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+        const serviceID = 'default_service'
+        const templateID = 'template_402qxhd'
+        const publicKey = 'FiKaFZCR_ohrq32bd'
 
         emailjs
             .sendForm(serviceID, templateID, form.current, publicKey)
