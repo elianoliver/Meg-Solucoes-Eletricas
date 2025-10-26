@@ -4,7 +4,6 @@ import { Phone, Mail, MapPin, Zap } from 'lucide-react';
 import logoImage from '/public/logo.svg';
 
 export function Footer() {
-    const currentYear = new Date().getFullYear();
 
     return (
         <footer className="bg-slate-950 text-white py-12">
@@ -101,7 +100,7 @@ export function Footer() {
                 <div className="border-t border-slate-800 mt-8 pt-8">
                     <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                         <div className="text-slate-400 text-sm">
-                            © {currentYear} MEG Soluções Elétricas. Todos os direitos reservados.
+                            © 2025 - Desenvolvido por <a href='https://www.elian.dev.br' target='_blank'>elian.dev</a>
                         </div>
                         <div className="text-slate-400 text-sm">
                             Jair Souza - Eletricista Profissional
