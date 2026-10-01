@@ -1,241 +1,193 @@
+import { useState } from "react";
 import {
-    Home,
-    Building,
-    Zap,
-    Shield,
-    Lightbulb,
-    FireExtinguisher,
-    AlertTriangle,
-    Wrench
-} from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Badge } from './ui/badge';
-import { ImageWithFallback } from './figma/ImageWithFallback';
-import { ServicesSEO } from './SEO';
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from './ui/carousel';
+  ArrowUpRight,
+  ArrowLeft,
+  ArrowRight,
+  House,
+  Building2,
+  Wrench,
+  Lightbulb,
+  ShieldCheck,
+  Cable,
+  Zap,
+  Network,
+} from "lucide-react";
+import { projectData } from "../projects";
 
-const allImages = import.meta.glob('../assets/**/*.jpg', { eager: true });
-const groupedImages = Object.entries(allImages).reduce((acc, [path, module]) => {
-    // Extrai o nome da pasta do caminho do arquivo.
-    // Ex: '../assets/services/lustres/lustres-01.jpg' -> 'lustres'
-    const folder = path.split('/').slice(-2, -1)[0];
-    // Se a chave da pasta ainda não existe no nosso acumulador, cria um array vazio
-    if (!acc[folder]) {
-        acc[folder] = [];
-    }
-    // Adiciona a URL da imagem ao array correspondente à sua pasta
-    acc[folder].push((module as any).default);
-    return acc;
-}, {} as Record<string, string[]>);
+const modules = import.meta.glob<string>("../assets/services/**/*.jpg", {
+  eager: true,
+  query: "?url",
+  import: "default",
+});
+const groups: Record<string, string[]> = {};
+Object.entries(modules)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .forEach(([path, url]) => {
+    const folder = path.split("/").at(-2)!;
+    (groups[folder] ??= []).push(url);
+  });
+const services = [
+  {
+    icon: House,
+    title: "Instalações residenciais",
+    text: "Uma instalação bem feita para viver com tranquilidade. Do quadro elétrico às tomadas.",
+  },
+  {
+    icon: Building2,
+    title: "Elétrica comercial",
+    text: "Infraestrutura confiável para sua empresa funcionar com segurança e eficiência.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Iluminação e LED",
+    text: "Luz que transforma ambientes. Perfis de LED, lustres e projetos luminotécnicos.",
+  },
+  {
+    icon: Wrench,
+    title: "Manutenção e reformas",
+    text: "Prevenção de falhas e modernização das instalações, com atenção a cada detalhe.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Proteção e SPDA",
+    text: "Aterramento, dispositivos de proteção e sistemas contra descargas atmosféricas.",
+  },
+  {
+    icon: Cable,
+    title: "Infraestrutura elétrica",
+    text: "Eletrodutos, eletrocalhas e distribuição organizada para obras de todos os tamanhos.",
+  },
+  {
+    icon: Network,
+    title: "Redes e segurança",
+    text: "Cabeamento estruturado, montagem de racks e instalação de câmeras de monitoramento.",
+  },
+  {
+    icon: Zap,
+    title: "Emergências 24h",
+    text: "Problemas elétricos não têm hora. Entre em contato para solicitar atendimento.",
+  },
+];
 
-// Defina aqui os dados customizados para cada pasta/projeto
-// Adicione uma entrada para cada subpasta que você quiser customizar
-// Se não houver entrada para uma pasta, usaremos valores genéricos
-const projectData: Record<string, { title: string; description: string; badges: string[] }> = {
-    "1celisa": {
-        title: 'Iluminação de LED em área externa',
-        description: 'Iluminação moderna com perfis de LED no Residencial Celisa, em Itapema.',
-        badges: ['Iluminação Decorativa', 'Design Moderno', 'LED', 'Residencial']
-    },
-    "2perfil-led": {
-        title: 'Iluminação de LED em área interna',
-        description: 'Projeto e instalação de perfis de LED para iluminação moderna, funcional e de baixo consumo energético.',
-        badges: ['Design Moderno', 'LED', 'Eficiência Energética']
-    },
-    "3lustres": {
-        title: 'Instalação de Lustres e Pendentes',
-        description: 'Montagem e instalação de luminárias decorativas, como lustres e pendentes, com precisão e segurança.',
-        badges: ['Iluminação Decorativa', 'Design de Interiores', 'Precisão']
-    },
-    "4iluminacao": {
-        title: 'Projeto Luminotécnico',
-        description: 'Planejamento completo da iluminação de ambientes para criar espaços confortáveis, valorizando a arquitetura.',
-        badges: ['Luminotécnica', 'Conforto Visual', 'Automação']
-    },
-    "5garagem": {
-        title: 'Elétrica para Garagem e Área Externa',
-        description: 'Instalação de tomadas, iluminação reforçada e preparação para automação de portões e carregadores veiculares.',
-        badges: ['Área Externa', 'Automação', 'Carregador Veicular']
-    },
-    "6tubulacao": {
-        title: 'Passagem de Eletrodutos',
-        description: 'Execução da infraestrutura elétrica em fase de obra, com passagem de eletrodutos e caixas de passagem.',
-        badges: ['Infraestrutura', 'Obra', 'Planejamento']
-    },
-    "7predial": {
-        title: 'Manutenção Elétrica Predial',
-        description: 'Serviços de manutenção e adequação em instalações elétricas de condomínios e edifícios comerciais.',
-        badges: ['Predial', 'Manutenção', 'Alta Complexidade']
-    },
-    "8derivacao-infra": {
-        title: 'Infraestrutura e Derivação',
-        description: 'Construção da infraestrutura com caixas de derivação para uma distribuição elétrica eficiente e organizada.',
-        badges: ['Infraestrutura', 'Conexões', 'Organização']
-    },
-    "9montagem-infra": {
-        title: 'Montagem de Eletrocalhas',
-        description: 'Instalação de eletrocalhas e perfilados para a condução segura de grande volume de cabos em ambientes comerciais.',
-        badges: ['Comercial', 'Eletrocalha', 'Infraestrutura']
-    },
-    "91cameras": {
-        title: 'Instalação de Câmeras (CFTV)',
-        description: 'Instalação e configuração de sistema de câmeras de segurança (CFTV) para monitoramento residencial ou comercial.',
-        badges: ['Segurança', 'CFTV', 'Monitoramento']
-    },
-    "92switch": {
-        title: 'Infraestrutura de Rede Estruturada',
-        description: 'Montagem de rack com switch, patch panel e organização de cabeamento para uma rede de dados estável e veloz.',
-        badges: ['Rede Estruturada', 'Conectividade', 'Smart Home']
-    }
-};
+function ProjectCard({ folder }: { folder: string }) {
+  const [index, setIndex] = useState(0);
+  const images = groups[folder];
+  const project = projectData[folder];
+  return (
+    <article className="project-card">
+      <div className="project-image">
+        <img
+          src={images[index]}
+          alt={`${project.title} — foto ${index + 1}`}
+          loading="lazy"
+          decoding="async"
+          width="600"
+          height="450"
+        />
+        <span className="project-tag">{project.badges[0]}</span>
+        <div className="gallery-controls">
+          <button
+            type="button"
+            aria-label={`Foto anterior: ${project.title}`}
+            onClick={() =>
+              setIndex((index - 1 + images.length) % images.length)
+            }
+          >
+            <ArrowLeft size={17} />
+          </button>
+          <span aria-live="polite" aria-atomic="true">
+            {index + 1} / {images.length}
+          </span>
+          <button
+            type="button"
+            aria-label={`Próxima foto: ${project.title}`}
+            onClick={() => setIndex((index + 1) % images.length)}
+          >
+            <ArrowRight size={17} />
+          </button>
+        </div>
+      </div>
+      <h3>{project.title}</h3>
+      <p>{project.description}</p>
+    </article>
+  );
+}
+
 export function ServicesSection() {
-    const services = [
-        {
-            icon: Home,
-            title: "Instalações Residenciais",
-            description: "Instalação completa de sistemas elétricos para residências, incluindo quadros de distribuição, tomadas, interruptores e iluminação.",
-            features: ["Projeto elétrico", "Instalação completa", "Adequação às normas", "Garantia de segurança"]
-        },
-        {
-            icon: Building,
-            title: "Instalações Comerciais",
-            description: "Sistemas elétricos para estabelecimentos comerciais e empresariais, com foco na eficiência energética e segurança.",
-            features: ["Projeto personalizado", "Sistemas trifásicos", "Automação", "Eficiência energética"]
-        },
-        {
-            icon: Zap,
-            title: "Manutenção Preventiva",
-            description: "Inspeções regulares e manutenção preventiva para garantir o funcionamento seguro e eficiente dos sistemas elétricos.",
-            features: ["Inspeção completa", "Relatório detalhado", "Cronograma de manutenção", "Prevenção de falhas"]
-        },
-        {
-            icon: AlertTriangle,
-            title: "Emergências 24h",
-            description: "Atendimento de emergência 24 horas para resolver problemas elétricos urgentes com rapidez e segurança.",
-            features: ["Atendimento 24h", "Resposta rápida", "Diagnóstico preciso", "Solução imediata"]
-        },
-        {
-            icon: Shield,
-            title: "Sistemas de Proteção",
-            description: "Instalação de dispositivos de proteção contra surtos, DPS, disjuntores e sistemas de aterramento.",
-            features: ["Proteção contra surtos", "Aterramento", "DR e DPS", "Segurança garantida"]
-        },
-        {
-            icon: Lightbulb,
-            title: "Iluminação LED",
-            description: "Modernização de sistemas de iluminação com tecnologia LED para maior economia de energia e durabilidade.",
-            features: ["Economia de energia", "Maior durabilidade", "Luz de qualidade", "Projeto luminotécnico"]
-        },
-        {
-            icon: FireExtinguisher,
-            title: "SPDA e Para-raios",
-            description: "Instalação, manutenção e laudo de Sistemas de Proteção contra Descargas Atmosféricas, garantindo a segurança de estruturas e pessoas conforme a NBR 5419.",
-            features: ["Projeto e instalação", "Laudo técnico (NR 10)", "Manutenção corretiva e preventiva", "Proteção contra raios"]
-        },
-        {
-            icon: Wrench,
-            title: "Reforma Elétrica",
-            description: "Atualização e modernização de instalações elétricas antigas, adequando-as às normas atuais de segurança.",
-            features: ["Adequação às normas", "Modernização", "Aumento de segurança", "Melhoria na eficiência"]
-        }
-    ];
-
-    return (
-        <>
-            <ServicesSEO />
-            <section id="servicos" className="py-20 bg-white" role="main" aria-label="Seção de serviços elétricos">
-                <div className="container mx-auto px-4">
-                    {/* Header */}
-                    <header className="text-center space-y-4 mb-16">
-                        <Badge className="bg-yellow-500 text-black">Nossos Serviços</Badge>
-                        <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">
-                            Soluções Elétricas Completas
-                        </h2>
-                        <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                            Oferecemos uma ampla gama de serviços elétricos para atender todas as suas necessidades
-                            com segurança, qualidade e eficiência.
-                        </p>
-                    </header>
-
-                    {/* Services Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                        {services.map((service, index) => (
-                            <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                                <CardHeader className="text-center">
-                                    <div className="mx-auto bg-yellow-500 p-3 rounded-full w-fit group-hover:bg-yellow-600 transition-colors">
-                                        <service.icon className="h-6 w-6 text-white" />
-                                    </div>
-                                    <CardTitle className="text-lg">{service.title}</CardTitle>
-                                </CardHeader>
-                                <CardContent className="text-center space-y-4">
-                                    <p className="text-slate-600 text-sm">{service.description}</p>
-                                    <div className="space-y-2">
-                                        {service.features.map((feature, idx) => (
-                                            <div key={idx} className="text-xs text-slate-500 bg-slate-50 px-2 py-1 rounded">
-                                                {feature}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-
-                    {/* Featured Projects */}
-                    <div className="space-y-8">
-                        <div className="text-center">
-                            <h3 className="text-2xl font-bold text-slate-900 mb-2">PROJETOS EM DESTAQUE</h3>
-                            <p className="text-slate-600">Alguns dos nossos trabalhos recentes</p>
-                        </div>
-
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {Object.entries(groupedImages).map(([folder, images]) => {
-                                const data = projectData[folder] || {
-                                    title: folder.charAt(0).toUpperCase() + folder.slice(1),
-                                    description: `Exemplos de projetos relacionados a ${folder}.`,
-                                    badges: [folder]
-                                };
-                                return (
-                                    <Card key={folder} className="overflow-hidden">
-                                        <div className="h-[400px]">
-                                            <Carousel className="w-full h-full">
-                                                <CarouselContent>
-                                                    {images.map((src, idx) => (
-                                                        <CarouselItem key={idx}>
-                                                            <ImageWithFallback
-                                                                src={src}
-                                                                alt={`${data.title} imagem ${idx + 1}`}
-                                                                className="w-full h-[400px] object-cover"
-                                                            />
-                                                        </CarouselItem>
-                                                    ))}
-                                                </CarouselContent>
-                                                <CarouselPrevious className="absolute left-2 top-1/2" />
-                                                <CarouselNext className="absolute right-2 top-1/2" />
-                                            </Carousel>
-                                        </div>
-                                        <CardContent className="">
-                                            <h4 className="font-bold text-lg mb-2">{data.title}</h4>
-                                            <p className="text-slate-600 mb-4">{data.description}</p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {data.badges.map((badge, idx) => (
-                                                    <Badge key={idx} variant="secondary">{badge}</Badge>
-                                                ))}
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                );
-                            })}
-                        </div>
-                    </div>
+  const [expanded, setExpanded] = useState(false);
+  const folders = Object.keys(projectData).filter(
+    (folder) => groups[folder]?.length,
+  );
+  return (
+    <>
+      <section id="servicos" className="section services">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">01 / O QUE FAZEMOS</p>
+              <h2>
+                Soluções completas.
+                <br />
+                Cuidado em cada detalhe.
+              </h2>
+            </div>
+            <p>
+              Do pequeno reparo a uma nova instalação, a mesma dedicação para
+              entregar um serviço bem feito.
+            </p>
+          </div>
+          <div className="services-grid">
+            {services.map((service, i) => (
+              <article key={service.title} className="service-card">
+                <div className="service-card-top">
+                  <service.icon size={27} strokeWidth={1.5} />
+                  <span>0{i + 1}</span>
                 </div>
-            </section>
-        </>
-    );
+                <h3>{service.title}</h3>
+                <p>{service.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section id="projetos" className="section projects">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">02 / NA PRÁTICA</p>
+              <h2>
+                O resultado fala
+                <br />
+                por si.
+              </h2>
+            </div>
+            <p>
+              Projetos reais, executados com atenção, técnica e compromisso.
+              Explore os detalhes de cada trabalho.
+            </p>
+          </div>
+          <div className="projects-grid" id="project-gallery">
+            {(expanded ? folders : folders.slice(0, 3)).map((folder) => (
+              <ProjectCard key={folder} folder={folder} />
+            ))}
+          </div>
+          <div className="projects-action">
+            <button
+              className="button button-outline"
+              type="button"
+              aria-expanded={expanded}
+              aria-controls="project-gallery"
+              onClick={() => setExpanded(!expanded)}
+            >
+              {expanded
+                ? "Mostrar menos projetos"
+                : `Ver todos os ${folders.length} projetos`}{" "}
+              <ArrowUpRight size={18} />
+            </button>
+            <span>Execução MEG Soluções Elétricas</span>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }

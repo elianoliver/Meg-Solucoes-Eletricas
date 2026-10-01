@@ -1,108 +1,69 @@
-'use client';
-
-import { Menu, Phone, Mail } from 'lucide-react';
-import { Button } from './ui/button';
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from './ui/sheet';
-import logoImage from '/public/logo.svg';
+import { useRef, useState } from "react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import { contact } from "../contact";
 
 export function Header() {
-    const scrollToSection = (sectionId: string) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+  const [open, setOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  return (
+    <header
+      className="site-header"
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          setOpen(false);
+          toggle.current?.focus();
         }
-    };
-
-    const NavLinks = () => (
-        <>
-            <button
-                onClick={() => scrollToSection('inicio')}
-                className="hover:text-yellow-500 text-white cursor-pointer transition-colors bg-[rgba(255,255,255,0)]"
-            >
-                Início
-            </button>
-            <button
-                onClick={() => scrollToSection('sobre')}
-                className="hover:text-yellow-500 text-white cursor-pointer transition-colors"
-            >
-                Sobre
-            </button>
-            <button
-                onClick={() => scrollToSection('servicos')}
-                className="hover:text-yellow-500 text-white cursor-pointer transition-colors"
-            >
-                Serviços
-            </button>
-            <button
-                onClick={() => scrollToSection('contato')}
-                className="hover:text-yellow-500 text-white cursor-pointer transition-colors"
-            >
-                Contato
-            </button>
-        </>
-    );
-
-    return (
-        <header className="fixed top-0 w-full bg-slate-900/95 backdrop-blur-sm z-50 border-b border-slate-800">
-            <div className="container mx-auto px-4 py-4">
-                <div className="flex items-center justify-between">
-                    {/* Logo */}
-                    <div className="flex items-center space-x-3">
-                        <img
-                            src={logoImage}
-                            alt="MEG Soluções Elétricas - Logo da empresa especializada em serviços elétricos profissionais"
-                            className="h-12 w-auto"
-                            loading="eager"
-                        />
-                        <span className="text-2xl text-white font-bold">MEG Soluções</span>
-                    </div>
-
-                    {/* Desktop Navigation */}
-                    <nav className="hidden md:flex items-center space-x-8" role="navigation" aria-label="Menu principal">
-                        <NavLinks />
-                    </nav>
-
-                    {/* Contact Info */}
-                    <div className="hidden lg:flex items-center space-x-4">
-                        <div className="flex items-center space-x-2 text-sm text-white">
-                            <Phone className="h-4 w-4 text-yellow-500" />
-                            <span>(47) 99647-1189</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-sm text-white">
-                            <Mail className="h-4 w-4 text-yellow-500" />
-                            <span>jairsouza0111@gmail.com</span>
-                        </div>
-                    </div>
-
-                    {/* Mobile Menu */}
-                    <Sheet>
-                        <SheetTrigger asChild className="md:hidden">
-                            <Button variant="link" size="lg" className="text-[14px]">
-                                <Menu className="h-6 w-6 text-white" />
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="right" className="bg-slate-900 border-slate-800 text-white">
-                            <SheetTitle className="sr-only">Menu de Navegação</SheetTitle>
-                            <SheetDescription className="sr-only">
-                                Menu de navegação do site MEG Soluções Elétricas
-                            </SheetDescription>
-                            <div className="flex flex-col space-y-6 mt-8">
-                                <NavLinks />
-                                <div className="border-t border-slate-800 pt-6 space-y-4">
-                                    <div className="flex items-center justify-center space-x-2">
-                                        <Phone className="h-4 w-4 text-yellow-500" />
-                                        <span>(47) 99647-1189</span>
-                                    </div>
-                                    <div className="flex items-center justify-center space-x-2">
-                                        <Mail className="h-4 w-4 text-yellow-500" />
-                                        <span>jairsouza0111@gmail.com</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </SheetContent>
-                    </Sheet>
-                </div>
-            </div>
-        </header>
-    );
+      }}
+    >
+      <div className="container header-inner">
+        <a
+          href="#inicio"
+          className="brand"
+          aria-label="MEG Soluções Elétricas — início"
+          onClick={() => setOpen(false)}
+        >
+          <img src="/logo.svg" alt="" width="43" height="40" />
+          <span>
+            MEG<span className="brand-subtitle">SOLUÇÕES ELÉTRICAS</span>
+          </span>
+        </a>
+        <button
+          ref={toggle}
+          className="menu-toggle"
+          type="button"
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={open}
+          aria-controls="main-nav"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X /> : <Menu />}
+        </button>
+        <nav
+          id="main-nav"
+          className={`main-nav ${open ? "is-open" : ""}`}
+          aria-label="Navegação principal"
+        >
+          {[
+            ["servicos", "Serviços"],
+            ["projetos", "Projetos"],
+            ["sobre", "Sobre nós"],
+            ["contato", "Contato"],
+          ].map(([id, label]) => (
+            <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>
+              {label}
+            </a>
+          ))}
+          <a
+            className="button button-small"
+            href={contact.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+          >
+            Solicitar orçamento <ArrowUpRight size={17} />
+          </a>
+        </nav>
+      </div>
+    </header>
+  );
 }
